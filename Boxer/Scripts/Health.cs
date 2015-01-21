@@ -35,7 +35,7 @@ public class Health : MonoBehaviour
 		healthbar = GameObject.FindGameObjectWithTag ("healthbar");
 	}
 	
-	
+	//a
 	void Update ()
 	{	
 		GameObject temp = GameObject.FindGameObjectWithTag ("me");
