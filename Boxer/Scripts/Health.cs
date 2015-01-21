@@ -57,7 +57,7 @@ public class Health : MonoBehaviour
 	}
 	
 	[RPC]
-	public void TakeDamage (int amount)
+	public void TakeDamage (int amount, string id)
 	{
 		Debug.Log ("attacked1");
 		GameObject temp = GameObject.FindGameObjectWithTag ("me");

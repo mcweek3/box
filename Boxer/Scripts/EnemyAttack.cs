@@ -32,7 +32,7 @@ public class EnemyAttack : MonoBehaviour
 		if(other.gameObject.tag == "you")
 		{
 			// ... the player is in range.
-			enemy = other.gameObject.GetComponent<PhotonView>().owner;
+			int enemyID = other.gameObject.GetComponent<PhotonView>().viewID;
 			playerInRange = true;
 		}
 	}
@@ -72,7 +72,9 @@ public class EnemyAttack : MonoBehaviour
 		// Reset the timer.
 		timer = 0f;
 		Debug.Log ("attack");
-		PhotonView.Get(this).RPC ("TakeDamage", enemy, attackDamage);
+		string id;
+		object[] param = {attackDamage, id};
+		PhotonView.Get(this).RPC ("TakeDamage", enemy, attackDamage, param);
 		// If the player has health to lose...
 		//		if(playerHealth.currentHealth > 0)
 		//		{
