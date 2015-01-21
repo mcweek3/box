@@ -14,8 +14,8 @@ public class EnemyAttack : MonoBehaviour
 	//	EnemyHealth enemyHealth;                    // Reference to this enemy's health.
 	bool playerInRange;                         // Whether player is within the trigger collider and can be attacked.
 	float timer;                                // Timer for counting up to the next attack.
-	PhotonPlayer enemy;
-	
+	public int enemyID = -1;
+
 	void Awake ()
 	{
 		// Setting up the references.
@@ -32,7 +32,7 @@ public class EnemyAttack : MonoBehaviour
 		if(other.gameObject.tag == "you")
 		{
 			// ... the player is in range.
-			int enemyID = other.gameObject.GetComponent<PhotonView>().viewID;
+			enemyID = other.gameObject.GetComponent<PhotonView>().viewID;
 			playerInRange = true;
 		}
 	}
@@ -45,7 +45,7 @@ public class EnemyAttack : MonoBehaviour
 		{
 			// ... the player is no longer in range.
 			playerInRange = false;
-			enemy = null;
+			enemyID = -1;
 		}
 	}
 	
@@ -72,9 +72,8 @@ public class EnemyAttack : MonoBehaviour
 		// Reset the timer.
 		timer = 0f;
 		Debug.Log ("attack");
-		string id;
-		object[] param = {attackDamage, id};
-		PhotonView.Get(this).RPC ("TakeDamage", enemy, attackDamage, param);
+		int[] param = {attackDamage, enemyID};
+		PhotonView.Get(this).RPC ("TakeDamage", PhotonTargets.All, attackDamage, enemyID);
 		// If the player has health to lose...
 		//		if(playerHealth.currentHealth > 0)
 		//		{

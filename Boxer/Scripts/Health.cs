@@ -57,11 +57,13 @@ public class Health : MonoBehaviour
 	}
 	
 	[RPC]
-	public void TakeDamage (int amount, string id)
+	public void TakeDamage (int damage, int id)
 	{
-		Debug.Log ("attacked1");
-		GameObject temp = GameObject.FindGameObjectWithTag ("me");
-		temp.transform.SendMessage ("RealDamage", amount);
+		Debug.Log (id + " got attacked: " + damage);
+//		PhotonPlayer pp = PhotonPlayer.Find (id);
+		GameObject target = PhotonView.Find (id).gameObject;
+		target.GetComponent<Health>().currentHealth -= 10;
+		target.transform.SendMessage ("cylinderhealthdown", damage);
 	}
 
 	public void RealDamage(int amount){
