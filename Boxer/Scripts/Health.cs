@@ -62,14 +62,9 @@ public class Health : MonoBehaviour
 		Debug.Log (id + " got attacked: " + damage);
 //		PhotonPlayer pp = PhotonPlayer.Find (id);
 		GameObject target = PhotonView.Find (id).gameObject;
-<<<<<<< HEAD
 //		target.GetComponent<Health>().currentHealth -= 10;
 		target.transform.SendMessage ("cylinderhealthdown", damage);
 		target.transform.SendMessage ("RealDamage", damage);
-=======
-		target.GetComponent<Health>().currentHealth -= 10;
-		target.transform.SendMessage ("cylinderhealthdown", damage);
->>>>>>> 0bb2d180dcd2cdc9800fc12c018032734c6b75be
 	}
 
 	public void RealDamage(int amount){
