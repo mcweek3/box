@@ -64,7 +64,8 @@ public class Health : MonoBehaviour
 		GameObject target = PhotonView.Find (id).gameObject;
 //		target.GetComponent<Health>().currentHealth -= 10;
 		target.transform.SendMessage ("cylinderhealthdown", damage);
-		target.transform.SendMessage ("RealDamage", damage);
+		if (PhotonView.Find (id).isMine)
+			target.transform.SendMessage ("RealDamage", damage);
 	}
 
 	public void RealDamage(int amount){
